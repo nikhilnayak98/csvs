@@ -5,8 +5,7 @@
 # Email: Nikhil-Ranjan.Nayak@warwick.ac.uk
 # Description: Docker one off run script.
 
-# Docker Network
-# So that our containers can talk to each other:
+# Docker network
 docker network create --subnet=198.51.100.0/24 u2185920/csvs2022_n
 
 # Run dbserver container
