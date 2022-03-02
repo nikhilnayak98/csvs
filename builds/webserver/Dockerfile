@@ -27,4 +27,4 @@ EXPOSE 80
 
 VOLUME /var/log/webserver/
 
-ENTRYPOINT ["/docker-entrypoint.sh"]
+ENTRYPOINT ["sh", "/docker-entrypoint.sh"]

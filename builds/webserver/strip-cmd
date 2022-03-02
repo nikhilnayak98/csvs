@@ -10,10 +10,11 @@
     -p nginx \
     -f /etc/passwd \
     -f /etc/group \
-    -f '/lib/*/libnss*' \
+    -f '/usr/lib64/libnss*' \
     -f /bin/ls \
     -f /bin/cat \
     -f /bin/sh \
+    -f /bin/bash \
     -f /bin/mkdir \
     -f /bin/ps \
     -f /var/run \
