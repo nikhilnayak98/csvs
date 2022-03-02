@@ -19,7 +19,7 @@
     -f /bin/ps \
     -f /var/run \
     -f /var/log/nginx \
-    -f /var/log/php-fpm/error.log \
+    -f /var/log/php-fpm \
     -f /var/cache/nginx \
     -f /usr/sbin/php-fpm \
     -f /etc/nginx/nginx.conf \
