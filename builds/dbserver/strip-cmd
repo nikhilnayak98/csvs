@@ -6,11 +6,11 @@
 # Description: dbserver stripping
 
 ../../scripts/strip-image  \
-    -i u2185920/csvs2022-db_i \
-    -p mariadb-server \
-    -f /tmp \
-    -f /var/lib/mysqld \
-    -f /run/mysqld \
-    -f /var \
-    -d Dockerfile \
-    -t u2185920/csvs2022-db_i:stripped
+        -i u2185920/csvs2022-db_i \
+        -p mariadb-server \
+        -f /tmp \
+        -f /var/lib/mysqld \
+        -f /run/mysqld \
+        -f /var \
+        -d Dockerfile \
+        -t u2185920/csvs2022-db_i:stripped
