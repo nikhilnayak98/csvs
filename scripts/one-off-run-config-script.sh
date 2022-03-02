@@ -46,7 +46,7 @@ docker run -d \
 # mount read only DBSERVER_VOL volume                                   #
 # set read, write output directory for stracing                         #
 # drops all capabilities                                                #
-# add the required capabilities                                         #
+# add required capabilities                                             #
 #########################################################################
 docker run -d \
         --net u2185920/csvs2022_n \
