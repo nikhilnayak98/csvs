@@ -43,7 +43,7 @@ docker run -d \
 # set memory swap                                                       #
 # set the container to be read only                                     #
 # set writable temporary file systems required to run the container     #
-# mount ready only DBSERVER_VOL volume                                  #
+# mount read only DBSERVER_VOL volume                                   #
 # set read, write output directory for stracing                         #
 # drops all capabilities                                                #
 # add the required capabilities                                         #
@@ -132,7 +132,7 @@ docker run -d \
 # set memory swap                                                       #
 # set the container to be read only                                     #
 # set writable temporary file systems required to run the container     #
-# mount ready only WEBSERVER_VOL volume                                 #
+# mount read only WEBSERVER_VOL volume                                  #
 # set read, write output directory for stracing                         #
 # drops all capabilities                                                #
 # add the required capabilities                                         #
