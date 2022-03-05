@@ -1,4 +1,4 @@
-policy_module(docker_webserver,0.2)
+policy_module(docker_webserver,1.0.0)
 # pn: 2021-02-24: updated with dontaudit additions
 # derived from:
 #   Original material from James Dorgan

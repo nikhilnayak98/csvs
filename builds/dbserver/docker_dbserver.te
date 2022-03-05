@@ -1,0 +1,39 @@
+policy_module(docker_dbserver,1.0.0)
+# pn: 2021-02-24: updated with dontaudit additions
+# derived from:
+#   Original material from James Dorgan
+#   https://opensource.com/business/15/3/docker-security-tuning
+#   https://opensource.com/article/18/2/understanding-selinux-labels-container-runtimes
+
+# This template interface creates the docker_dbserver_t type as a
+# type which can be run as a docker container. To see what it does, look in 
+# /usr/share/selinux/devel/include/contrib/virt.if
+virt_sandbox_domain_template(docker_dbserver);
+
+################# put audit2allow rules in here ##############
+require {
+        type mysqld_port_t;
+        type node_t;
+        type sysfs_t;
+        class capability { chown setgid setuid };
+        class tcp_socket { bind create listen name_bind node_bind setopt };
+        class file { open read };
+        class netlink_route_socket { bind create getattr nlmsg_read };
+        class lnk_file read;
+        class udp_socket { connect create getattr ioctl };
+}
+
+#============= docker_dbserver_t ==============
+allow docker_dbserver_t mysqld_port_t:tcp_socket name_bind;
+allow docker_dbserver_t node_t:tcp_socket node_bind;
+allow docker_dbserver_t self:capability { chown setgid setuid };
+allow docker_dbserver_t self:netlink_route_socket { bind create getattr nlmsg_read };
+allow docker_dbserver_t self:tcp_socket { bind create listen setopt };
+allow docker_dbserver_t self:udp_socket { connect create getattr ioctl };
+allow docker_dbserver_t sysfs_t:file { open read };
+allow docker_dbserver_t sysfs_t:lnk_file read;
+################# end audit2allow additions ##################
+# Permissive domains allow processes to not be blocked by SELinux
+# Remove this rule, when you are confident in the policy.
+#permissive docker_dbserver_t;
+
