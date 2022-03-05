@@ -1,7 +1,7 @@
 #!/bin/bash
 # 
 # Author: Nikhil Ranjan Nayak
-# Web: https://github.com/nikhilnayak98/cdp
+# Web: https://github.com/nikhilnayak98/csvs
 # Email: Nikhil-Ranjan.Nayak@warwick.ac.uk
 # Description: Docker one off run script.
 
@@ -10,177 +10,64 @@ docker network create --subnet=198.51.100.0/24 u2185920/csvs2022_n
 
 
 #########################
-#       DBSERVER        #
+# SELinux               #
 #########################
-# Run dbserver container normally
-docker run -d \
-        --net u2185920/csvs2022_n \
-        --ip 198.51.100.179 \
-        --hostname db.cyber22.test \
-        -e MYSQL_ROOT_PASSWORD="CorrectHorseBatteryStaple" \
-        -e MYSQL_DATABASE="csvs22db" \
-        --name u2185920_csvs2022-db_c u2185920/csvs2022-db_i
-
-# Run dbserver container normally stripped
-docker run -d \
-        --net u2185920/csvs2022_n \
-        --ip 198.51.100.179 \
-        --hostname db.cyber22.test \
-        -e MYSQL_ROOT_PASSWORD="CorrectHorseBatteryStaple" \
-        -e MYSQL_DATABASE="csvs22db" \
-        --name u2185920_csvs2022-db_c u2185920/csvs2022-db_i:stripped
-
-#########################################################################
-# Phase 1: Runtime Hardening Explanation                                #
-# set network name                                                      #
-# set ip                                                                #
-# set hostname                                                          #
-# set ip mapping with hostname                                          #
-# set mysql root password                                               #
-# set mysql database                                                    #
-# set cpu core                                                          #
-# set limited memory                                                    #
-# set memory swap                                                       #
-# set the container to be read only                                     #
-# set writable temporary file systems required to run the container     #
-# mount read only DBSERVER_VOL volume                                   #
-# set read, write output directory for stracing                         #
-# drops all capabilities                                                #
-# add required capabilities                                             #
-#########################################################################
-docker run -d \
-        --net u2185920/csvs2022_n \
-        --ip 198.51.100.179 \
-        --hostname db.cyber22.test \
-        -e MYSQL_ROOT_PASSWORD="CorrectHorseBatteryStaple" \
-        -e MYSQL_DATABASE="csvs22db" \
-        --cpuset-cpus=0 \
-        --memory="300m" \
-        --memory-swap="1g" \
-        --read-only \
-        --tmpfs /tmp \
-        --tmpfs /var/run/mysqld \
-        --tmpfs /var/lib/mysqld \
-        --tmpfs /run/mysqld \
-        --tmpfs /var \
-        -v DBSERVER_VOL:/var/log/dbserver/:ro \
-        -v $PWD/output_h:/output_c:rw \
-        --cap-drop=ALL \
-        --cap-add=SETGID --cap-add=SETUID --cap-add=CHOWN --cap-add=SYS_PTRACE \
-        --name u2185920_csvs2022-db_c u2185920/csvs2022-db_i
+# Compile textual file into an executable policy file
+sudo make -f /usr/share/selinux/devel/Makefile docker_dbserver.pp
+sudo make -f /usr/share/selinux/devel/Makefile docker_webserver.pp
 
 
-#########################################################################
-# Phase 3: Stripping                                                    #
-# The following code to be run after stripping the image                #
-#########################################################################
-docker run -d \
-        --net u2185920/csvs2022_n \
-        --ip 198.51.100.179 \
-        --hostname db.cyber22.test \
-        -e MYSQL_ROOT_PASSWORD="CorrectHorseBatteryStaple" \
-        -e MYSQL_DATABASE="csvs22db" \
-        --cpuset-cpus=0 \
-        --memory="300m" \
-        --memory-swap="1g" \
-        --read-only \
-        --tmpfs /tmp \
-        --tmpfs /var/run/mysqld \
-        --tmpfs /var/lib/mysqld \
-        --tmpfs /run/mysqld \
-        --tmpfs /var \
-        -v DBSERVER_VOL:/var/log/dbserver/:ro \
-        -v $PWD/output_h:/output_c:rw \
-        --cap-drop=ALL \
-        --cap-add=SETGID --cap-add=SETUID --cap-add=CHOWN --cap-add=SYS_PTRACE \
-        --name u2185920_csvs2022-db_c u2185920/csvs2022-db_i:stripped
+# Insert the policy file into the active kernel policies to be used
+sudo semodule -i docker_dbserver.pp
+sudo semodule -i docker_webserver.pp
 
-# Import db
-docker exec -i u2185920_csvs2022-db_c mysql -uroot -pCorrectHorseBatteryStaple < sqlconfig/csvs22db.sql
+# Confirm it is present and check the version number
+sudo semodule -l | grep docker
+
+# Start application with label
+# Use the service, then check for report policy contraventions
+sudo cat /var/log/audit/audit.log
+
+# Convert these contraventions to text which could be editted into .te file
+sudo ausearch -m avc --start recent | audit2allow -r
+
+# Ensure SELinux is enforcing
+sudo setenforce 1
 
 
 #########################
-#       WEBSERVER       #
+# Stripping             #
 #########################
-# Run webserver container normally
-docker run -d \
-        --net u2185920/csvs2022_n \
-        --ip 198.51.100.180 \
-        --hostname www.cyber22.test \
-        --add-host db.cyber22.test:198.51.100.179 \
-        -p 80:80 \
-        --name u2185920_csvs2022-web_c u2185920/csvs2022-web_i
+# dbserver stripping
+../../scripts/strip-image  \
+    -i u2185920/csvs2022-db_i \
+    -p mariadb-server \
+    -f /tmp \
+    -f /var/lib/mysqld \
+    -f /run/mysqld \
+    -f /var \
+    -d Dockerfile \
+    -t u2185920/csvs2022-db_i:stripped
 
-# Run webserver container normally stripped
-docker run -d \
-        --net u2185920/csvs2022_n \
-        --ip 198.51.100.180 \
-        --hostname www.cyber22.test \
-        --add-host db.cyber22.test:198.51.100.179 \
-        -p 80:80 \
-        --name u2185920_csvs2022-web_c u2185920/csvs2022-web_i:stripped
-
-#########################################################################
-# Phase 1: Runtime Hardening Explanation                                #
-# set network name                                                      #
-# set ip                                                                #
-# set hostname                                                          #
-# set ip mapping with hostname                                          #
-# set port mapping with host machine                                    #
-# set cpu core                                                          #
-# set limited memory                                                    #
-# set memory swap                                                       #
-# set the container to be read only                                     #
-# set writable temporary file systems required to run the container     #
-# mount read only WEBSERVER_VOL volume                                  #
-# set read, write output directory for stracing                         #
-# drops all capabilities                                                #
-# add the required capabilities                                         #
-# set name of the container                                             #
-#########################################################################
-docker run -d \
-        --net u2185920/csvs2022_n \
-        --ip 198.51.100.180 \
-        --hostname www.cyber22.test \
-        --add-host db.cyber22.test:198.51.100.179 \
-        -p 80:80 \
-        --cpuset-cpus=0 \
-        --memory="100m" \
-        --memory-swap="300m" \
-        --read-only \
-        --tmpfs /var/log/nginx \
-        --tmpfs /var/lib/nginx/tmp \
-        --tmpfs /var/log/php-fpm \
-        --tmpfs /var/run/php-fpm \
-        --tmpfs /run \
-        -v WEBSERVER_VOL:/var/log/webserver/:ro \
-        -v $PWD/output_h:/output_c:rw \
-        --cap-drop=ALL \
-        --cap-add=CHOWN --cap-add=SETGID --cap-add=SETUID --cap-add=NET_BIND_SERVICE --cap-add=SYS_PTRACE \
-        --name u2185920_csvs2022-web_c u2185920/csvs2022-web_i
-
-
-#########################################################################
-# Phase 3: Stripping                                                    #
-# The following code to be run after stripping the image                #
-#########################################################################
-docker run -d \
-        --net u2185920/csvs2022_n \
-        --ip 198.51.100.180 \
-        --hostname www.cyber22.test \
-        --add-host db.cyber22.test:198.51.100.179 \
-        -p 80:80 \
-        --cpuset-cpus=0 \
-        --memory="100m" \
-        --memory-swap="300m" \
-        --read-only \
-        --tmpfs /var/log/nginx \
-        --tmpfs /var/lib/nginx/tmp \
-        --tmpfs /var/log/php-fpm \
-        --tmpfs /var/run/php-fpm \
-        --tmpfs /run \
-        -v WEBSERVER_VOL:/var/log/webserver/:ro \
-        -v $PWD/output_h:/output_c:rw \
-        --cap-drop=ALL \
-        --cap-add=CHOWN --cap-add=SETGID --cap-add=SETUID --cap-add=NET_BIND_SERVICE --cap-add=SYS_PTRACE \
-        --name u2185920_csvs2022-web_c u2185920/csvs2022-web_i:stripped
+# webserver stripping
+../../scripts//strip-image  \
+    -i u2185920/csvs2022-web_i \
+    -p nginx \
+    -f /etc/passwd \
+    -f /etc/group \
+    -f '/lib/*/libnss*' \
+    -f /bin/ls \
+    -f /bin/cat \
+    -f /bin/sh \
+    -f /bin/mkdir \
+    -f /bin/ps \
+    -f /var/run \
+    -f /var/log/nginx \
+    -f /usr/sbin/php-fpm \
+    -f /etc/nginx/nginx.conf \
+    -f /etc/php-fpm.conf \
+    -f /etc/php-fpm.d/*.conf \
+    -f /usr/share/nginx/html \
+    -f /docker-entrypoint.sh \
+    -d Dockerfile \
+    -t u2185920/csvs2022-web_i:stripped
