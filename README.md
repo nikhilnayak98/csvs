@@ -19,8 +19,8 @@ This repo contains workings of docker hardening (capabilities, selinux, seccomp,
 
 ## Phase 2
 - [x] 1. Set SELinux policy
-- [] 2. Set seccomp profile
+- [ ] 2. Set seccomp profile
 
 ## Phase 3
-- [] 1. Strip the images to their bare minimum size
-- [] 2. Add privilege escalation protection
+- [ ] 1. Strip the images to their bare minimum size
+- [ ] 2. Add privilege escalation protection
