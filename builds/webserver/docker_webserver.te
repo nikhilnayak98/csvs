@@ -17,6 +17,7 @@ require {
         type http_port_t;
         class capability { chown net_bind_service setgid setuid };
         class tcp_socket { accept bind connect create getattr getopt listen name_bind name_connect node_bind setopt };
+        class udp_socket create;
 }
 
 #============= docker_webserver_t ==============
@@ -25,6 +26,7 @@ allow docker_webserver_t mysqld_port_t:tcp_socket name_connect;
 allow docker_webserver_t node_t:tcp_socket node_bind;
 allow docker_webserver_t self:capability { chown net_bind_service setgid setuid };
 allow docker_webserver_t self:tcp_socket { accept bind connect create getattr getopt listen setopt };
+allow docker_webserver_t self:udp_socket create;
 ################# end audit2allow additions ##################
 
 # Permissive domains allow processes to not be blocked by SELinux

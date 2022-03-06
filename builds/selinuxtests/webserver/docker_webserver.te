@@ -15,13 +15,13 @@ require {
 
 ################# put audit2allow rules in here ##############
 
-allow docker_webserver_t http_port_t:tcp_socket name_bind;
-allow docker_webserver_t node_t:tcp_socket node_bind;
-allow docker_webserver_t self:capability { chown net_bind_service setgid setuid };
-allow docker_webserver_t self:tcp_socket { bind create listen setopt };
+allow docker_webserver_t http_port_t:tcp_socket name_bind; # yes
+allow docker_webserver_t node_t:tcp_socket node_bind; # yes
+allow docker_webserver_t self:capability { chown net_bind_service setgid setuid }; # yes
+allow docker_webserver_t self:tcp_socket { bind create listen setopt }; # yes
 #added the following commands after testing the webserver functionality
-allow docker_webserver_t mysqld_port_t:tcp_socket name_connect;
-allow docker_webserver_t self:tcp_socket { accept connect getattr shutdown };
+allow docker_webserver_t mysqld_port_t:tcp_socket name_connect; # yes
+allow docker_webserver_t self:tcp_socket { accept connect getattr shutdown }; # yes , but shutdown in place of getopt
 
 ################# end audit2allow additions ##################
 

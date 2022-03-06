@@ -18,17 +18,17 @@ require {
 
 ################# put audit2allow rules in here ##############
 
-allow docker_dbserver_t self:capability { setgid setuid };
-allow docker_dbserver_t self:netlink_route_socket { bind create getattr nlmsg_read };
-allow docker_dbserver_t self:udp_socket { create ioctl };
-allow docker_dbserver_t sysfs_t:file { open read };
-allow docker_dbserver_t sysfs_t:lnk_file read;
-allow docker_dbserver_t mysqld_port_t:tcp_socket name_bind;
-allow docker_dbserver_t node_t:tcp_socket node_bind;
-allow docker_dbserver_t self:tcp_socket { bind create listen setopt };
-allow docker_dbserver_t self:udp_socket { connect getattr };
+allow docker_dbserver_t self:capability { setgid setuid }; # yes, but no chown
+allow docker_dbserver_t self:netlink_route_socket { bind create getattr nlmsg_read }; # yes
+allow docker_dbserver_t self:udp_socket { create ioctl }; # yes
+allow docker_dbserver_t sysfs_t:file { open read }; # yes
+allow docker_dbserver_t sysfs_t:lnk_file read; # yes
+allow docker_dbserver_t mysqld_port_t:tcp_socket name_bind; # yes
+allow docker_dbserver_t node_t:tcp_socket node_bind; # yes
+allow docker_dbserver_t self:tcp_socket { bind create listen setopt }; # yes
+allow docker_dbserver_t self:udp_socket { connect getattr }; # yes
 #added the following command after testing the dbserver functionality
-allow docker_dbserver_t self:tcp_socket { accept getattr };
+allow docker_dbserver_t self:tcp_socket { accept getattr }; # yes
 
 ################# end audit2allow additions ##################
 
