@@ -5,16 +5,24 @@
 # Email: Nikhil-Ranjan.Nayak@warwick.ac.uk
 # Description: webserver stripping
 
+docker rm u2185920_csvs2022-web_c
+docker rmi u2185920/csvs2022-web_i:stripped -f
+
 ../../scripts/strip-image  \
         -i u2185920/csvs2022-web_i \
         -p nginx \
+        -p php \
+        -p php-mysqlnd \
+        -p php-fpm \
+        -p sh \
+        -p bash \
         -f /etc/passwd \
         -f /etc/group \
-        -f '/usr/lib64/libnss*' \
+        -f '/lib/*/libnss*' \
+        -f '/lib64/libnss*' \
         -f /bin/ls \
         -f /bin/cat \
         -f /bin/sh \
-        -f /bin/bash \
         -f /bin/mkdir \
         -f /bin/ps \
         -f /var/run \
