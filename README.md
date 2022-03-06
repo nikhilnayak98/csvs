@@ -12,7 +12,7 @@ This repo contains workings of docker hardening (capabilities, selinux, seccomp,
 - [x] 8. Set memory swap
 - [x] 9. Set the container to be read only
 - [x] 10. Set writable temporary file systems that are required
-- [x] 11. Mount read only WEBSERVER_VOL volume
+- [x] 11. Mount read only volumes
 - [x] 12. Set read, write output directory for stracing
 - [x] 13. Drop all capabilities and add only the required capabilities
 - [x] 14. Set name of the container
