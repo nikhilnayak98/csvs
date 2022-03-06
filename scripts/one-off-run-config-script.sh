@@ -4,6 +4,9 @@
 # Web: https://github.com/nikhilnayak98/csvs
 # Email: Nikhil-Ranjan.Nayak@warwick.ac.uk
 # Description: Docker one off run script.
+#               (Citation 1: Peter Norris, https://moodle.warwick.ac.uk/pluginfile.php/2256652/mod_folder/content/0/selinux/docker_chat.te?forcedownload=1)
+#               (Citation 2: Peter Norris, https://moodle.warwick.ac.uk/pluginfile.php/2256652/mod_folder/content/0/seccomp/build-minimal-sycalls.sh?forcedownload=1)
+#               (Citation 3: Peter Norris, https://moodle.warwick.ac.uk/pluginfile.php/2256647/mod_folder/content/0/strip-image?forcedownload=1)
 
 # Docker network
 docker network create --subnet=198.51.100.0/24 u2185920/csvs2022_n
@@ -21,11 +24,8 @@ sudo make -f /usr/share/selinux/devel/Makefile docker_webserver.pp
 sudo semodule -i docker_dbserver.pp
 sudo semodule -i docker_webserver.pp
 
-# Confirm it is present and check the version number
-sudo semodule -l | grep docker
-
-# Start application with label
-# Use the service, then check for report policy contraventions
+# Run containers with label
+# Check for report policy contraventions
 sudo cat /var/log/audit/audit.log
 
 # Convert these contraventions to text which could be editted into .te file
@@ -33,6 +33,12 @@ sudo ausearch -m avc --start recent | audit2allow -r
 
 # Ensure SELinux is enforcing
 sudo setenforce 1
+
+
+#########################
+# seccomp               #
+#########################
+./build-minimal-sycalls.sh
 
 
 #########################

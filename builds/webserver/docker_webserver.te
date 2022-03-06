@@ -1,9 +1,12 @@
 policy_module(docker_webserver,1.0.0)
-# pn: 2021-02-24: updated with dontaudit additions
-# derived from:
-#   Original material from James Dorgan
-#   https://opensource.com/business/15/3/docker-security-tuning
-#   https://opensource.com/article/18/2/understanding-selinux-labels-container-runtimes
+# Author: Nikhil Ranjan Nayak
+# Web: https://github.com/nikhilnayak98/csvs
+# Email: Nikhil-Ranjan.Nayak@warwick.ac.uk
+# Description: SELinux policy template.
+#               (Citation 1: Peter Norris, https://moodle.warwick.ac.uk/pluginfile.php/2256652/mod_folder/content/0/selinux/docker_chat.te?forcedownload=1)
+#                2021-02-24: updated with dontaudit additions
+#               (Citation 2: James Dorgan, https://opensource.com/business/15/3/docker-security-tuning)
+#               (Citation 3: James Dorgan, https://opensource.com/article/18/2/understanding-selinux-labels-container-runtimes)
 
 # This template interface creates the docker_webserver_t type as a
 # type which can be run as a docker container. To see what it does, look in 
