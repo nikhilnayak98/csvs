@@ -5,9 +5,7 @@
 # Email: Nikhil-Ranjan.Nayak@warwick.ac.uk
 # Description: webserver stripping
 
-docker rm u2185920_csvs2022-web_c
-docker rmi u2185920/csvs2022-web_i:stripped -f
-
+# with strip-image script
 ../../scripts/strip-image  \
         -i u2185920/csvs2022-web_i \
         -p nginx \
@@ -37,3 +35,9 @@ docker rmi u2185920/csvs2022-web_i:stripped -f
         -f /docker-entrypoint.sh \
         -d Dockerfile \
         -t u2185920/csvs2022-web_i:stripped
+
+# with docker-slim
+docker-slim build \
+        --target u2185920/csvs2022-web_i \
+        --include-path /usr/share/nginx/html/action.php \
+        --tag u2185920/csvs2022-web_i:stripped
