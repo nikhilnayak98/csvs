@@ -5,6 +5,7 @@
 # Email: Nikhil-Ranjan.Nayak@warwick.ac.uk
 # Description: dbserver stripping
 
+# with strip-image
 ../../scripts/strip-image  \
         -i u2185920/csvs2022-db_i \
         -p mariadb-server \
@@ -14,3 +15,13 @@
         -f /var \
         -d Dockerfile \
         -t u2185920/csvs2022-db_i:stripped
+
+# with docker-slim
+docker-slim build \
+        --target u2185920/csvs2022-db_i \
+        --include-path /mysql/mysql.conf.d/mysqld.cnf \
+        --include-path /var/lib/mysqld \
+        --include-path /run/mysqld \
+        --include-path /etc/mysql/conf.d/ \
+        --http-probe=false \
+        --tag u2185920/csvs2022-db_i:stripped

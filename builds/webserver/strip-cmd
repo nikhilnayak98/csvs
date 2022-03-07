@@ -40,4 +40,8 @@
 docker-slim build \
         --target u2185920/csvs2022-web_i \
         --include-path /usr/share/nginx/html/action.php \
+        --include-path /etc/nginx/nginx.conf \
+        --include-path /etc/php.ini \
+        --include-path /etc/php-fpm.d/www.conf \
+        --include-path /etc/nginx/conf.d/php-fpm.conf \
         --tag u2185920/csvs2022-web_i:stripped
