@@ -26,10 +26,12 @@
         -f /var/run \
         -f /var/log/nginx \
         -f /var/log/php-fpm \
-        -f /var/cache/nginx \
         -f /usr/sbin/php-fpm \
-        -f /etc/nginx/nginx.conf \
         -f /etc/php-fpm.conf \
+        -f /etc/nginx/nginx.conf \
+        -f /etc/php.ini \
+        -f /etc/php-fpm.d/www.conf \
+        -f /etc/nginx/conf.d/php-fpm.conf \
         -f /etc/php-fpm.d/*.conf \
         -f /usr/share/nginx/html \
         -f /docker-entrypoint.sh \

@@ -50,5 +50,3 @@ docker run -d --net u2185920/csvs2022_n --ip 198.51.100.180 --hostname www.cyber
 # You should now be able to browse to http://localhost/ to view the web application!
 
 # NOTE: If you have issues getting the basic setup working, ask for help!
-
-
