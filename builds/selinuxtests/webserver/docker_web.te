@@ -1,43 +1,47 @@
-policy_module(docker_webserver,1.0.0)
-# Author: Nikhil Ranjan Nayak
-# Web: https://github.com/nikhilnayak98/csvs
-# Email: Nikhil-Ranjan.Nayak@warwick.ac.uk
-# Description: SELinux policy template.
-#               (Citation 1: Peter Norris, https://moodle.warwick.ac.uk/pluginfile.php/2256652/mod_folder/content/0/selinux/docker_chat.te?forcedownload=1)
-#                2021-02-24: updated with dontaudit additions
-#               (Citation 2: James Dorgan, https://opensource.com/business/15/3/docker-security-tuning)
-#               (Citation 3: James Dorgan, https://opensource.com/article/18/2/understanding-selinux-labels-container-runtimes)
+policy_module(docker_web,1.0.0)
+# pn: 2021-02-24: updated with dontaudit additions
+# derived from:
+#   Original material from James Dorgan
+#   https://opensource.com/business/15/3/docker-security-tuning
+#   https://opensource.com/article/18/2/understanding-selinux-labels-container-runtimes
 
-# This template interface creates the docker_webserver_t type as a
+# This template interface creates the docker_chat_t type as a
 # type which can be run as a docker container. To see what it does, look in 
 # /usr/share/selinux/devel/include/contrib/virt.if
-virt_sandbox_domain_template(docker_webserver);
+virt_sandbox_domain_template(docker_web);
 
 ################# put audit2allow rules in here ##############
 require {
-        type mysqld_port_t;
-        type node_t;
-        type http_port_t;
-        class capability { chown net_bind_service setgid setuid };
-        class tcp_socket { accept bind connect create getattr getopt listen name_bind name_connect node_bind setopt }; # read, write
-        class udp_socket create;
+#	type policykit_auth_t;
+	type docker_web_t;
+	type mysqld_port_t;
+	type http_port_t;
+	type node_t;
+#	type policykit_t;
+#	type setroubleshootd_t;
+#	type system_dbusd_t;
+#	class process { noatsecure rlimitinh siginh };
+	class tcp_socket { accept bind connect create getattr getopt listen name_bind name_connect node_bind read setopt write };
+	class capability { chown net_bind_service setgid setuid };
+	class udp_socket create;
 }
 
-#============= docker_webserver_t ==============
-allow docker_webserver_t http_port_t:tcp_socket name_bind;
-allow docker_webserver_t mysqld_port_t:tcp_socket name_connect;
-allow docker_webserver_t node_t:tcp_socket node_bind;
-allow docker_webserver_t self:capability { chown net_bind_service setgid setuid };
-allow docker_webserver_t self:tcp_socket { accept bind connect create getattr getopt listen setopt }; # read, write
-allow docker_webserver_t self:udp_socket create;
+#============= docker_web_t ==============
+allow docker_web_t http_port_t:tcp_socket name_bind;
+allow docker_web_t mysqld_port_t:tcp_socket name_connect;
+allow docker_web_t node_t:tcp_socket node_bind;
+allow docker_web_t self:capability { chown net_bind_service setgid setuid };
+allow docker_web_t self:tcp_socket { accept bind connect create getattr getopt listen read setopt write };
+allow docker_web_t self:udp_socket create;
+
 ################# end audit2allow additions ##################
 
 # Permissive domains allow processes to not be blocked by SELinux
 # Remove this rule, when you are confident in the policy.
-#permissive docker_webserver_t;
+# permissive docker_web_t;
 
 ##############################################################
-# How to develop the docker_webserver policy
+# How to develop the docker_web policy
 ##############################################################
 # The following narrative describes four sets of actions:
 #   Actions that need doing only once at the beginning (one off actions)
@@ -70,18 +74,20 @@ allow docker_webserver_t self:udp_socket create;
 #   # save the editted file
 
 #   # compile this textual file into an executable policy (.pp) file
-#   sudo make -f /usr/share/selinux/devel/Makefile docker_webserver.pp
+#   sudo make -f /usr/share/selinux/devel/Makefile docker_web.pp
 
 #   # insert the policy file into the active kernel policies (ie so it can be used)
-#   sudo semodule -i docker_webserver.pp
+#   sudo semodule -i docker_web.pp
 
 #   # confirm it is present (and check the version number)
 #   sudo semodule -l | grep docker
 
 #   # invoke the container with the policy applied
-#   docker run ... --security-opt label:type:docker_webserver_t ...
+#   docker run ... --security-opt label:type:docker_web_t ...
 #   # eg
-#   docker run --name chat_c -d -p 127.0.0.1:7777:6666  --security-opt label:type:docker_webserver_t local/chat_i:0.2
+#   docker run --name chat_c -d -p 127.0.0.1:7777:6666  --security-opt label:type:docker_chat_t local/chat_i:0.2
+
+# docker run -d --net u2182027/csvs2022_n --security-opt label:type:docker_web_t --cap-drop=ALL --cap-add=CHOWN --cap-add=SETGID --cap-add=SETUID --cap-add=NET_BIND_SERVICE --ip 198.51.100.180 --hostname www.cyber22.test --add-host db.cyber22.test:198.51.100.179 -p 80:80 --name u2182027_csvs2022-web_c u2182027/csvs2022-web_i:0.2
 
 #   # use the service, then check for report policy contraventions
 #   sudo cat /var/log/audit/audit.log
