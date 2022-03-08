@@ -25,6 +25,4 @@ RUN chmod +x /docker-entrypoint.sh && \
 
 EXPOSE 80
 
-VOLUME /var/log/webserver/
-
 ENTRYPOINT ["sh", "/docker-entrypoint.sh"]

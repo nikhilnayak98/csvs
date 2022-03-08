@@ -39,7 +39,7 @@ docker run -d \
 # set memory swap                                                       #
 # set the container to be read only                                     #
 # set writable temporary file systems required to run the container     #
-# mount read only DBSERVER_VOL volume                                   #
+# mount read only DBSERVERLOG_VOL volume                                   #
 # set read, write output directory for stracing                         #
 # drops all capabilities                                                #
 # add required capabilities                                             #
@@ -59,7 +59,8 @@ docker run -d \
         --tmpfs /var/lib/mysqld \
         --tmpfs /run/mysqld \
         --tmpfs /var \
-        -v DBSERVER_VOL:/var/log/dbserver/:ro \
+        -v DBSERVERLOG_VOL:/var/log/dbserver/:ro \
+        -v DBSERVERDATA_VOL:/var/lib/mysql/:rw \
         -v $PWD/output_h:/output_c:rw \
         --cap-drop=ALL \
         --cap-add=SETGID --cap-add=SETUID --cap-add=CHOWN --cap-add=SYS_PTRACE \
@@ -83,7 +84,8 @@ docker run -d \
         --tmpfs /var/lib/mysqld \
         --tmpfs /run/mysqld \
         --tmpfs /var \
-        -v DBSERVER_VOL:/var/log/dbserver/:ro \
+        -v DBSERVERLOG_VOL:/var/log/dbserver/:ro \
+        -v DBSERVERDATA_VOL:/var/lib/mysql/:rw \
         -v $PWD/output_h:/output_c:rw \
         --cap-drop=ALL \
         --cap-add=SETGID --cap-add=SETUID --cap-add=CHOWN --cap-add=SYS_PTRACE \
@@ -109,7 +111,8 @@ docker run -d \
         --tmpfs /var/lib/mysqld \
         --tmpfs /run/mysqld \
         --tmpfs /var \
-        -v DBSERVER_VOL:/var/log/dbserver/:ro \
+        -v DBSERVERLOG_VOL:/var/log/dbserver/:ro \
+        -v DBSERVERDATA_VOL:/var/lib/mysql/:rw \
         -v $PWD/output_h:/output_c:rw \
         --cap-drop=ALL \
         --cap-add=SETGID --cap-add=SETUID --cap-add=CHOWN --cap-add=SYS_PTRACE \
@@ -150,7 +153,7 @@ docker run -d \
 # set memory swap                                                       #
 # set the container to be read only                                     #
 # set writable temporary file systems required to run the container     #
-# mount read only WEBSERVER_VOL volume                                  #
+# mount read only WEBSERVERLOG_VOL volume                                  #
 # set read, write output directory for stracing                         #
 # drops all capabilities                                                #
 # add the required capabilities                                         #
@@ -171,7 +174,7 @@ docker run -d \
         --tmpfs /var/log/php-fpm \
         --tmpfs /var/run/php-fpm \
         --tmpfs /run \
-        -v WEBSERVER_VOL:/var/log/webserver/:ro \
+        -v WEBSERVERLOG_VOL:/var/log/webserver/:ro \
         -v $PWD/output_h:/output_c:rw \
         --cap-drop=ALL \
         --cap-add=CHOWN --cap-add=SETGID --cap-add=SETUID --cap-add=NET_BIND_SERVICE --cap-add=SYS_PTRACE \
@@ -195,7 +198,7 @@ docker run -d \
         --tmpfs /var/log/php-fpm \
         --tmpfs /var/run/php-fpm \
         --tmpfs /run \
-        -v WEBSERVER_VOL:/var/log/webserver/:ro \
+        -v WEBSERVERLOG_VOL:/var/log/webserver/:ro \
         -v $PWD/output_h:/output_c:rw \
         --cap-drop=ALL \
         --cap-add=CHOWN --cap-add=SETGID --cap-add=SETUID --cap-add=NET_BIND_SERVICE --cap-add=SYS_PTRACE \
@@ -221,7 +224,7 @@ docker run -d \
         --tmpfs /var/log/php-fpm \
         --tmpfs /var/run/php-fpm \
         --tmpfs /run \
-        -v WEBSERVER_VOL:/var/log/webserver/:ro \
+        -v WEBSERVERLOG_VOL:/var/log/webserver/:ro \
         -v $PWD/output_h:/output_c:rw \
         --cap-drop=ALL \
         --cap-add=CHOWN --cap-add=SETGID --cap-add=SETUID --cap-add=NET_BIND_SERVICE --cap-add=SYS_PTRACE \

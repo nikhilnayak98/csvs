@@ -34,6 +34,7 @@ docker-slim build \
         --include-path /etc/group \
         --include-path /etc/shadow \
         --include-path /usr/bin/mysql \
+        --include-path /usr/bin/mysql_install_db \
         --include-path /usr/bin/mariadb \
         --include-path /usr/bin/mariadb-install-db \
         --include-path /usr/bin/mariadb-tzinfo-to-sql \
