@@ -17,15 +17,6 @@ docker run -d \
         -e MYSQL_DATABASE="csvs22db" \
         --name u2185920_csvs2022-db_c u2185920/csvs2022-db_i
 
-# Run dbserver container normally stripped
-docker run -d \
-        --net u2185920/csvs2022_n \
-        --ip 198.51.100.179 \
-        --hostname db.cyber22.test \
-        -e MYSQL_ROOT_PASSWORD="CorrectHorseBatteryStaple" \
-        -e MYSQL_DATABASE="csvs22db" \
-        --name u2185920_csvs2022-db_c u2185920/csvs2022-db_i:stripped
-
 #########################################################################
 # Phase 1: Runtime Hardening Explanation                                #
 # set network name                                                      #
@@ -92,32 +83,8 @@ docker run -d \
         --security-opt label:type:docker_dbserver_t \
         --name u2185920_csvs2022-db_c u2185920/csvs2022-db_i
 
-#########################################################################
-# Phase 3: Stripping                                                    #
-# The following code to be run after stripping the image                #
-#########################################################################
-docker run -d \
-        --net u2185920/csvs2022_n \
-        --ip 198.51.100.179 \
-        --hostname db.cyber22.test \
-        -e MYSQL_ROOT_PASSWORD="CorrectHorseBatteryStaple" \
-        -e MYSQL_DATABASE="csvs22db" \
-        --cpuset-cpus=0 \
-        --memory="300m" \
-        --memory-swap="1g" \
-        --read-only \
-        --tmpfs /tmp \
-        --tmpfs /var/run/mysqld \
-        --tmpfs /var/lib/mysqld \
-        --tmpfs /run/mysqld \
-        --tmpfs /var \
-        -v DBSERVERLOG_VOL:/var/log/dbserver/:ro \
-        -v DBSERVERDATA_VOL:/var/lib/mysql/:rw \
-        -v $PWD/output_h:/output_c:rw \
-        --cap-drop=ALL \
-        --cap-add=SETGID --cap-add=SETUID --cap-add=CHOWN --cap-add=SYS_PTRACE \
-        --security-opt label:type:docker_dbserver_t \
-        --name u2185920_csvs2022-db_c u2185920/csvs2022-db_i:stripped
+
+#############################################################################################################
 
 
 #########################
@@ -131,15 +98,6 @@ docker run -d \
         --add-host db.cyber22.test:198.51.100.179 \
         -p 80:80 \
         --name u2185920_csvs2022-web_c u2185920/csvs2022-web_i
-
-# Run webserver container normally stripped
-docker run -d \
-        --net u2185920/csvs2022_n \
-        --ip 198.51.100.180 \
-        --hostname www.cyber22.test \
-        --add-host db.cyber22.test:198.51.100.179 \
-        -p 80:80 \
-        --name u2185920_csvs2022-web_c u2185920/csvs2022-web_i:stripped
 
 #########################################################################
 # Phase 1: Runtime Hardening Explanation                                #
@@ -203,28 +161,3 @@ docker run -d \
         --cap-add=CHOWN --cap-add=SETGID --cap-add=SETUID --cap-add=NET_BIND_SERVICE --cap-add=SYS_PTRACE \
         --security-opt label:type:docker_webserver_t \
         --name u2185920_csvs2022-web_c u2185920/csvs2022-web_i
-
-#########################################################################
-# Phase 3: Stripping                                                    #
-# The following code to be run after stripping the image                #
-#########################################################################
-docker run -d \
-        --net u2185920/csvs2022_n \
-        --ip 198.51.100.180 \
-        --hostname www.cyber22.test \
-        --add-host db.cyber22.test:198.51.100.179 \
-        -p 80:80 \
-        --cpuset-cpus=0 \
-        --memory="100m" \
-        --memory-swap="300m" \
-        --read-only \
-        --tmpfs /var/log/nginx \
-        --tmpfs /var/lib/nginx/tmp \
-        --tmpfs /var/log/php-fpm \
-        --tmpfs /var/run/php-fpm \
-        --tmpfs /run \
-        -v WEBSERVERLOG_VOL:/var/log/webserver/:ro \
-        -v $PWD/output_h:/output_c:rw \
-        --cap-drop=ALL \
-        --cap-add=CHOWN --cap-add=SETGID --cap-add=SETUID --cap-add=NET_BIND_SERVICE --cap-add=SYS_PTRACE \
-        --name u2185920_csvs2022-web_c u2185920/csvs2022-web_i:stripped

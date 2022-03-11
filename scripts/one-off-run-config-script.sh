@@ -39,7 +39,7 @@ sudo setenforce 1
 
 
 #########################
-# seccomp               #
+# SECCOMP               #
 #########################
 ./build-minimal-sycalls.sh
 

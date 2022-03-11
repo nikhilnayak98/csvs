@@ -20,7 +20,6 @@
         -f '/lib64/libnss*' \
         -f /bin/ls \
         -f /bin/cat \
-        -f /bin/sh \
         -f /bin/mkdir \
         -f /bin/ps \
         -f /var/run \
@@ -30,9 +29,9 @@
         -f /etc/php-fpm.conf \
         -f /etc/nginx/nginx.conf \
         -f /etc/php.ini \
+        -f /etc/php-fpm.d/*.conf \
         -f /etc/php-fpm.d/www.conf \
         -f /etc/nginx/conf.d/php-fpm.conf \
-        -f /etc/php-fpm.d/*.conf \
         -f /usr/share/nginx/html \
         -f /docker-entrypoint.sh \
         -d Dockerfile \
