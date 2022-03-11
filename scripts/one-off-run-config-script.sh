@@ -19,8 +19,8 @@ docker exec -i u2185920_csvs2022-db_c mysql -uroot -pCorrectHorseBatteryStaple <
 # SELinux               #
 #########################
 # Compile textual file into an executable policy file
-sudo make -f /usr/share/selinux/devel/Makefile docker_dbserver.pp
-sudo make -f /usr/share/selinux/devel/Makefile docker_webserver.pp
+echo "csc" | sudo -S sudo make -f /usr/share/selinux/devel/Makefile docker_dbserver.pp
+echo "csc" | sudo -S sudo make -f /usr/share/selinux/devel/Makefile docker_webserver.pp
 
 
 # Insert the policy file into the active kernel policies to be used
@@ -42,3 +42,11 @@ sudo setenforce 1
 # seccomp               #
 #########################
 ./build-minimal-sycalls.sh
+
+# stracing
+sudo strace -p $(docker inspect -f '{{.State.Pid}}' u2185920_csvs2022-web_c) -ff -o output_h/host-strace-output 
+
+sudo touch output_h/ready
+
+cat ../builds/webserver/output_h/* | grep -Po "^[a-z_0-9]+\(" | sed 's/(//' | sort | uniq | sed "s/$/\"/" | sed "s/^/\"/" > temp_assets/syscalls
+cat temp_assets/list-of-min-syscalls temp_assets/syscalls | sort | uniq | sed "s/$/,/" > temp_assets/minsyscalls
