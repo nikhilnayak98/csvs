@@ -17,7 +17,7 @@ docker rmi u2185920/csvs2022-db_i:latest u2185920/csvs2022-db_i:stripped
 docker rmi u2185920/csvs2022-web_i:latest u2185920/csvs2022-web_i:stripped
 
 # Delete SELinux stuff
-echo "csc" | sudo -S semodule -r docker_webserver
+sudo semodule -r docker_webserver
 sudo semodule -r docker_dbserver
 sudo rm -rf ../builds/webserver/tmp
 sudo rm -rf ../builds/dbserver/tmp

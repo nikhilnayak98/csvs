@@ -81,6 +81,7 @@ docker run -d \
         --cap-drop=ALL \
         --cap-add=SETGID --cap-add=SETUID --cap-add=CHOWN --cap-add=SYS_PTRACE \
         --security-opt label:type:docker_dbserver_t \
+        --security-opt seccomp=docker_dbserver.json \
         --name u2185920_csvs2022-db_c u2185920/csvs2022-db_i
 
 
@@ -160,4 +161,5 @@ docker run -d \
         --cap-drop=ALL \
         --cap-add=CHOWN --cap-add=SETGID --cap-add=SETUID --cap-add=NET_BIND_SERVICE --cap-add=SYS_PTRACE \
         --security-opt label:type:docker_webserver_t \
+        --security-opt seccomp=docker_webserver.json \
         --name u2185920_csvs2022-web_c u2185920/csvs2022-web_i
