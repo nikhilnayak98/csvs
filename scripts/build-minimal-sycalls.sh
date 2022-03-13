@@ -13,7 +13,7 @@ while read s
 do
     echo "$s being removed from moby-default.json"
     grep -v "\"${s}\"" temp_assets/moby-default.json > temp_assets/dbserver/tmp.json
-    docker run --rm --security-opt seccomp:temp_assets/dbserver/tmp.json ubuntu:focal true || echo $s >> temp_assets/dbserver/list-of-min-syscalls
+    docker run --rm --security-opt seccomp:temp_assets/dbserver/tmp.json mariadb:10 true || echo $s >> temp_assets/dbserver/list-of-min-syscalls
 
 done < temp_assets/moby-syscalls
 

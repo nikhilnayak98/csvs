@@ -44,15 +44,32 @@ sudo setenforce 1
 ./build-minimal-sycalls.sh
 
 # Stracing
-sudo strace -p $(docker inspect -f '{{.State.Pid}}' u2185920_csvs2022-web_c) -ff -o output_h/host-strace-output 
+echo "csc" | sudo -S sudo strace -p $(docker inspect -f '{{.State.Pid}}' u2185920_csvs2022-web_c) -ff -o output_h/host-strace-output 
 
 # Set ready flag
-sudo touch output_h/ready
+echo "csc" | sudo -S touch output_h/ready
 
 # Build syscalls
-mkdir 
-cat ../builds/webserver/output_h/* | grep -Po "^[a-z_0-9]+\(" | sed 's/(//' | sort | uniq | sed "s/$/\"/" | sed "s/^/\"/" > temp_assets/webserver/syscalls
-cat temp_assets/webserver/list-of-min-syscalls temp_assets/webserver/syscalls | sort | uniq | sed "s/$/,/" > temp_assets/webserver/minsyscalls
+cat ../builds/webserver/output_h/* | \
+    grep -Po "^[a-z_0-9]+\(" | \
+    sed 's/(//' | \
+    sort | \
+    uniq > temp_assets/webserver/straced_syscalls
 
-cat ../builds/dbserver/output_h/* | grep -Po "^[a-z_0-9]+\(" | sed 's/(//' | sort | uniq | sed "s/$/\"/" | sed "s/^/\"/" > temp_assets/dbserver/syscalls
-cat temp_assets/dbserver/list-of-min-syscalls temp_assets/dbserver/syscalls | sort | uniq | sed "s/$/,/" > temp_assets/dbserver/minsyscalls
+cat temp_assets/webserver/list-of-min-syscalls temp_assets/webserver/straced_syscalls | \
+    sort | \
+    uniq | \
+    sed "s/^/\"/" | \
+    sed "s/$/\",/" > temp_assets/webserver/min_syscalls
+
+cat ../builds/dbserver/output_h/* | \
+    grep -Po "^[a-z_0-9]+\(" | \
+    sed 's/(//' | \
+    sort | \
+    uniq > temp_assets/dbserver/straced_syscalls
+
+cat temp_assets/dbserver/list-of-min-syscalls temp_assets/dbserver/straced_syscalls | \
+    sort | \
+    uniq | \
+    sed "s/^/\"/" | \
+    sed "s/$/\",/" > temp_assets/dbserver/min_syscalls

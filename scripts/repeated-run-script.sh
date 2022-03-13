@@ -134,6 +134,7 @@ docker run -d \
         --tmpfs /var/run/php-fpm \
         --tmpfs /run \
         -v WEBSERVERLOG_VOL:/var/log/webserver/:ro \
+        -v $PWD/output_h:/output_c:rw \
         --cap-drop=ALL \
         --cap-add=CHOWN --cap-add=SETGID --cap-add=SETUID --cap-add=NET_BIND_SERVICE --cap-add=SYS_PTRACE \
         --name u2185920_csvs2022-web_c u2185920/csvs2022-web_i
