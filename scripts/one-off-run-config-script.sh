@@ -12,7 +12,7 @@
 docker network create --subnet=198.51.100.0/24 u2185920/csvs2022_n
 
 # Import database schema
-docker exec -i u2185920_csvs2022-db_c mysql -uroot -pCorrectHorseBatteryStaple < ../builds/dbserver/sqlconfig/csvs22db.sql
+docker exec -i u2185920_csvs2022-db_c mysql -uroot -pCorrectHorseBatteryStaple < sqlconfig/csvs22db.sql
 
 
 #########################
