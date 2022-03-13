@@ -2,12 +2,15 @@ capget
 capset
 chdir
 close
+dup2
 execve
 fstat
 fstatfs
 futex
 getdents64
+getpgrp
 getppid
+lstat
 mmap
 mprotect
 newfstatat
@@ -15,8 +18,11 @@ openat
 prctl
 pread64
 read
+rt_sigreturn
 setgid
 setgroups
 setuid
+stat
+wait4
 write
 writev

@@ -6,8 +6,6 @@
 # Description: Find minimal syscalls by removing from default syscalls
 #              (Citation: Peter Norris, https://moodle.warwick.ac.uk/pluginfile.php/2256652/mod_folder/content/0/seccomp/build-minimal-sycalls.sh?forcedownload=1)
 
-rm temp_assets/dbserver/list-of-min-syscalls temp_assets/webserver/list-of-min-syscalls
-
 # For dbserver
 while read s
 do

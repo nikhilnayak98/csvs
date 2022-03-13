@@ -44,7 +44,9 @@ sudo setenforce 1
 ./build-minimal-sycalls.sh
 
 # Stracing
-echo "csc" | sudo -S sudo strace -p $(docker inspect -f '{{.State.Pid}}' u2185920_csvs2022-web_c) -ff -o output_h/host-strace-output 
+echo "csc" | sudo -S strace -p $(docker inspect -f '{{.State.Pid}}' u2185920_csvs2022-db_c) -ff -o output_h/host-strace-output
+
+echo "csc" | sudo -S strace -p $(docker inspect -f '{{.State.Pid}}' u2185920_csvs2022-web_c) -ff -o output_h/host-strace-output
 
 # Set ready flag
 echo "csc" | sudo -S touch output_h/ready
