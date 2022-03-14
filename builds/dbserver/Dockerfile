@@ -6,6 +6,8 @@ COPY configfiles/mysqld.cnf  /mysql/mysql.conf.d/mysqld.cnf
 
 EXPOSE 3306
 
-# Stripping doesnt work for below
+RUN chown -R mysql:mysql /var/lib/mysql
+
 USER mysql
+
 CMD ["mysqld"]

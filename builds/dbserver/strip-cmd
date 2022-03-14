@@ -6,19 +6,19 @@
 # Description: dbserver stripping
 
 # with strip-image
-../../scripts/strip-image  \
-        -i u2185920/csvs2022-db_i \
-        -p mariadb-server \
-        -f /etc/passwd \
-        -f /etc/group \
-        -f /tmp \
-        -f /var/lib/mysql \
-        -f /var/lib/mysqld \
-        -f /usr/sbin/mysqld \
-        -f /run/mysqld \
-        -f /var \
-        -d Dockerfile \
-        -t u2185920/csvs2022-db_i:stripped
+# ../../scripts/strip-image  \
+#         -i u2185920/csvs2022-db_i \
+#         -p mariadb-server \
+#         -f /etc/passwd \
+#         -f /etc/group \
+#         -f /tmp \
+#         -f /var/lib/mysql \
+#         -f /var/lib/mysqld \
+#         -f /usr/sbin/mysqld \
+#         -f /run/mysqld \
+#         -f /var \
+#         -d Dockerfile \
+#         -t u2185920/csvs2022-db_i:stripped
 
 # with docker-slim
 docker-slim build \

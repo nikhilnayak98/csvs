@@ -19,8 +19,8 @@ docker exec -i u2185920_csvs2022-db_c mysql -uroot -pCorrectHorseBatteryStaple <
 # SELinux               #
 #########################
 # Compile textual file into an executable policy file
-echo "csc" | sudo -S sudo make -f /usr/share/selinux/devel/Makefile docker_dbserver.pp
-echo "csc" | sudo -S sudo make -f /usr/share/selinux/devel/Makefile docker_webserver.pp
+echo "csc" | sudo -S make -f /usr/share/selinux/devel/Makefile docker_dbserver.pp
+echo "csc" | sudo -S make -f /usr/share/selinux/devel/Makefile docker_webserver.pp
 
 
 # Insert the policy file into the active kernel policies to be used
