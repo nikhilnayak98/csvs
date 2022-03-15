@@ -27,3 +27,7 @@ echo "csc" | sudo -S rm ../builds/dbserver/docker_dbserver.fc ../builds/dbserver
 # Delete seccomp ready files
 echo "csc" | sudo -S rm -rf ../builds/dbserver/output_h
 echo "csc" | sudo -S rm -rf ../builds/webserver/output_h
+
+# Delete stripping files
+rm ../builds/dbserver/slim.report.json
+rm ../builds/webserver/slim.report.json
