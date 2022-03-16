@@ -2,6 +2,10 @@
 
 FROM mariadb:10
 
+LABEL org.opencontainers.image.authors="Nikhil Ranjan Nayak <Nikhil-Ranjan.Nayak@warwick.ac.uk>"
+
+LABEL description="DBServer Image"
+
 COPY configfiles/mysqld.cnf  /mysql/mysql.conf.d/mysqld.cnf
 
 EXPOSE 3306
