@@ -2,6 +2,10 @@
 
 FROM centos:7
 
+LABEL org.opencontainers.image.authors="Nikhil Ranjan Nayak <Nikhil-Ranjan.Nayak@warwick.ac.uk>"
+
+LABEL description="WebServer Image"
+
 RUN 	yum install epel-release -y && \
 	yum update -y && \
 	yum install -y \
