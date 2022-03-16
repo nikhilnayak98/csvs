@@ -34,6 +34,8 @@ docker run -d \
 # set read, write output directory for stracing                         #
 # drops all capabilities                                                #
 # add required capabilities                                             #
+# prevent escalate privileges using setuid or setgid binaries           #
+# set name of the conatiner                                             #
 #########################################################################
 docker run -d \
         --net u2185920/csvs2022_n \
@@ -54,6 +56,7 @@ docker run -d \
         -v DBSERVERDATA_VOL:/var/lib/mysql/:rw \
         --cap-drop=ALL \
         --cap-add=SETGID --cap-add=SETUID --cap-add=CHOWN \
+        --security-opt=no-new-privileges \
         --name u2185920_csvs2022-db_c u2185920/csvs2022-db_i
 
 #########################################################################
@@ -79,6 +82,7 @@ docker run -d \
         -v $PWD/output_h:/output_c:rw \
         --cap-drop=ALL \
         --cap-add=SETGID --cap-add=SETUID --cap-add=CHOWN --cap-add=SYS_PTRACE \
+        --security-opt=no-new-privileges \
         --security-opt label:type:docker_dbserver_t \
         --security-opt seccomp=docker_dbserver.json \
         --name u2185920_csvs2022-db_c u2185920/csvs2022-db_i
@@ -105,6 +109,7 @@ docker run -d \
         -v DBSERVERDATA_VOL:/var/lib/mysql/:rw \
         --cap-drop=ALL \
         --cap-add=SETGID --cap-add=SETUID --cap-add=CHOWN \
+        --security-opt=no-new-privileges \
         --security-opt label:type:docker_dbserver_t \
         --security-opt seccomp=docker_dbserver.json \
         --name u2185920_csvs2022-db_c u2185920/csvs2022-db_i:stripped
@@ -139,6 +144,7 @@ docker run -d \
 # set read, write output directory for stracing                         #
 # drops all capabilities                                                #
 # add the required capabilities                                         #
+# prevent escalate privileges using setuid or setgid binaries           #
 # set name of the container                                             #
 #########################################################################
 docker run -d \
@@ -159,6 +165,7 @@ docker run -d \
         -v WEBSERVERLOG_VOL:/var/log/webserver/:ro \
         --cap-drop=ALL \
         --cap-add=CHOWN --cap-add=SETGID --cap-add=SETUID --cap-add=NET_BIND_SERVICE \
+        --security-opt=no-new-privileges \
         --name u2185920_csvs2022-web_c u2185920/csvs2022-web_i
 
 #########################################################################
@@ -183,6 +190,7 @@ docker run -d \
         -v $PWD/output_h:/output_c:rw \
         --cap-drop=ALL \
         --cap-add=CHOWN --cap-add=SETGID --cap-add=SETUID --cap-add=NET_BIND_SERVICE --cap-add=SYS_PTRACE \
+        --security-opt=no-new-privileges \
         --security-opt label:type:docker_webserver_t \
         --security-opt seccomp=docker_webserver.json \
         --name u2185920_csvs2022-web_c u2185920/csvs2022-web_i
@@ -207,6 +215,7 @@ docker run -d \
         --tmpfs /run \
         --cap-drop=ALL \
         --cap-add=CHOWN --cap-add=SETGID --cap-add=SETUID --cap-add=NET_BIND_SERVICE \
+        --security-opt=no-new-privileges \
         --security-opt label:type:docker_webserver_t \
         --security-opt seccomp=docker_webserver.json \
         --name u2185920_csvs2022-web_c u2185920/csvs2022-web_i:stripped
