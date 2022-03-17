@@ -18,7 +18,6 @@ docker run -d \
         --name u2185920_csvs2022-db_c u2185920/csvs2022-db_i
 
 #########################################################################
-# Phase 1: Runtime Hardening Explanation                                #
 # set network name                                                      #
 # set ip                                                                #
 # set hostname                                                          #
@@ -60,7 +59,7 @@ docker run -d \
         --name u2185920_csvs2022-db_c u2185920/csvs2022-db_i
 
 #########################################################################
-# Phase 2: SELinux and Seccomp                                          #
+# SELinux and seccomp                                                   #
 #########################################################################
 docker run -d \
         --net u2185920/csvs2022_n \
@@ -88,7 +87,7 @@ docker run -d \
         --name u2185920_csvs2022-db_c u2185920/csvs2022-db_i
 
 #########################################################################
-# Phase 3: Final version stripped for attack surface reduction          #
+# Runtime for stripped version                                          #
 #########################################################################
 docker run -d \
         --net u2185920/csvs2022_n \
@@ -129,7 +128,6 @@ docker run -d \
         --name u2185920_csvs2022-web_c u2185920/csvs2022-web_i
 
 #########################################################################
-# Phase 1: Runtime Hardening Explanation                                #
 # set network name                                                      #
 # set ip                                                                #
 # set hostname                                                          #
@@ -169,7 +167,7 @@ docker run -d \
         --name u2185920_csvs2022-web_c u2185920/csvs2022-web_i
 
 #########################################################################
-# Phase 2: SELinux and Seccomp                                          #
+# SELinux and Seccomp                                                   #
 #########################################################################
 docker run -d \
         --net u2185920/csvs2022_n \
@@ -196,7 +194,7 @@ docker run -d \
         --name u2185920_csvs2022-web_c u2185920/csvs2022-web_i
 
 #########################################################################
-# Phase 3: Final version stripped for attack surface reduction          #
+# Runtime for stripped version                                          #
 #########################################################################
 docker run -d \
         --net u2185920/csvs2022_n \
