@@ -41,6 +41,7 @@ sudo setenforce 1
 #########################
 # SECCOMP               #
 #########################
+# Generate minimum syscalls to run the container
 ./build-minimal-sycalls.sh
 
 # Stracing
@@ -75,3 +76,13 @@ cat temp_assets/dbserver/list-of-min-syscalls temp_assets/dbserver/straced_sysca
     uniq | \
     sed "s/^/\"/" | \
     sed "s/$/\",/" > temp_assets/dbserver/min_syscalls
+
+
+#########################
+# STRIPPING             #
+#########################
+# dbserver stripping
+../builds/dbserver/strip-cmd
+
+# webserver stripping
+../builds/webserver/strip-cmd
