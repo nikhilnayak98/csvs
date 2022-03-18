@@ -48,14 +48,12 @@ docker run -d \
         --memory-swap="1g" \
         --read-only \
         --tmpfs /tmp \
+        --tmpfs /var \
         --tmpfs /var/run/mysqld \
         --tmpfs /var/lib/mysqld \
         --tmpfs /run/mysqld \
-        --tmpfs /var \
-        -v DBSERVERLOG_VOL:/var/log/dbserver/:ro \
         -v DBSERVERDATA_VOL:/var/lib/mysql/:rw \
         --cap-drop=ALL \
-        --cap-add=SETGID --cap-add=SETUID --cap-add=CHOWN \
         --security-opt=no-new-privileges \
         --name u2185920_csvs2022-db_c u2185920/csvs2022-db_i
 
@@ -74,15 +72,13 @@ docker run -d \
         --memory-swap="1g" \
         --read-only \
         --tmpfs /tmp \
+        --tmpfs /var \
         --tmpfs /var/run/mysqld \
         --tmpfs /var/lib/mysqld \
         --tmpfs /run/mysqld \
-        --tmpfs /var \
-        -v DBSERVERLOG_VOL:/var/log/dbserver/:ro \
         -v DBSERVERDATA_VOL:/var/lib/mysql/:rw \
         -v $PWD/output_h:/output_c:rw \
         --cap-drop=ALL \
-        --cap-add=SETGID --cap-add=SETUID --cap-add=CHOWN --cap-add=SYS_PTRACE \
         --security-opt=no-new-privileges \
         --security-opt label:type:docker_dbserver_t \
         --security-opt seccomp=docker_dbserver.json \
@@ -103,14 +99,12 @@ docker run -d \
         --memory-swap="1g" \
         --read-only \
         --tmpfs /tmp \
+        --tmpfs /var \
         --tmpfs /var/run/mysqld \
         --tmpfs /var/lib/mysqld \
         --tmpfs /run/mysqld \
-        --tmpfs /var \
-        -v DBSERVERLOG_VOL:/var/log/dbserver/:ro \
         -v DBSERVERDATA_VOL:/var/lib/mysql/:rw \
         --cap-drop=ALL \
-        --cap-add=SETGID --cap-add=SETUID --cap-add=CHOWN \
         --security-opt=no-new-privileges \
         --security-opt label:type:docker_dbserver_t \
         --security-opt seccomp=docker_dbserver.json \
@@ -160,11 +154,10 @@ docker run -d \
         --memory-swap="300m" \
         --read-only \
         --tmpfs /var/log/nginx \
-        --tmpfs /var/lib/nginx/tmp \
         --tmpfs /var/log/php-fpm \
+        --tmpfs /var/lib/nginx/tmp \
         --tmpfs /var/run/php-fpm \
         --tmpfs /run \
-        -v WEBSERVERLOG_VOL:/var/log/webserver/:ro \
         --cap-drop=ALL \
         --cap-add=CHOWN --cap-add=SETGID --cap-add=SETUID --cap-add=NET_BIND_SERVICE \
         --security-opt=no-new-privileges \
@@ -185,14 +178,13 @@ docker run -d \
         --memory-swap="300m" \
         --read-only \
         --tmpfs /var/log/nginx \
-        --tmpfs /var/lib/nginx/tmp \
         --tmpfs /var/log/php-fpm \
+        --tmpfs /var/lib/nginx/tmp \
         --tmpfs /var/run/php-fpm \
         --tmpfs /run \
-        -v WEBSERVERLOG_VOL:/var/log/webserver/:ro \
         -v $PWD/output_h:/output_c:rw \
         --cap-drop=ALL \
-        --cap-add=CHOWN --cap-add=SETGID --cap-add=SETUID --cap-add=NET_BIND_SERVICE --cap-add=SYS_PTRACE \
+        --cap-add=CHOWN --cap-add=SETGID --cap-add=SETUID --cap-add=NET_BIND_SERVICE \
         --security-opt=no-new-privileges \
         --security-opt label:type:docker_webserver_t \
         --security-opt seccomp=docker_webserver.json \
@@ -213,8 +205,8 @@ docker run -d \
         --memory-swap="300m" \
         --read-only \
         --tmpfs /var/log/nginx \
-        --tmpfs /var/lib/nginx/tmp \
         --tmpfs /var/log/php-fpm \
+        --tmpfs /var/lib/nginx/tmp \
         --tmpfs /var/run/php-fpm \
         --tmpfs /run \
         --cap-drop=ALL \
