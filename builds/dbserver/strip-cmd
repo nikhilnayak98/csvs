@@ -23,35 +23,8 @@
 # with docker-slim
 docker-slim build \
         --target u2185920/csvs2022-db_i \
-        --include-path /docker-entrypoint-initdb.d/ \
-        --include-path /usr/local/bin/docker-entrypoint.sh \
         --include-path /mysql/mysql.conf.d/mysqld.cnf \
-        --include-path /tmp \
-        --include-path /var/run \
-        --include-path /run/mysqld/ \
         --include-path /etc/mysql/conf.d/ \
-        --include-path /etc/passwd \
-        --include-path /etc/group \
-        --include-path /etc/shadow \
-        --include-path /usr/bin/mysql \
-        --include-path /usr/bin/mysql_install_db \
-        --include-path /usr/bin/mariadb \
-        --include-path /usr/bin/mariadb-install-db \
-        --include-path /usr/bin/mariadb-tzinfo-to-sql \
-        --include-path /usr/bin/mariadb-admin \
-        --include-path /usr/bin/my_print_defaults \
-        --include-path /usr/bin/resolveip \
-        --include-path /usr/share/mysql/ \
-        --include-exe /bin/chown \
-        --include-exe /bin/sh \
-        --include-exe /bin/uname \
-        --include-exe /bin/ls \
-        --include-exe /bin/sed \
-        --include-exe /bin/sleep \
-        --include-exe /bin/mkdir \
-        --include-exe /bin/grep \
-        --include-exe /bin/su \
-        --include-exe /bin/groups \
-        --include-shell=true \
+        --include-path /run/mysqld/ \
         --http-probe=false \
         --tag u2185920/csvs2022-db_i:stripped
