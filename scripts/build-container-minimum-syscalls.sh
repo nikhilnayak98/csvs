@@ -6,12 +6,11 @@
 # Description: Find minimal syscalls for containers by removing from min syscalls that are already generated
 #              (Citation: Peter Norris, https://moodle.warwick.ac.uk/pluginfile.php/2256652/mod_folder/content/0/seccomp/build-minimal-sycalls.sh?forcedownload=1)
 
-# For dbserver
-cp minimal-default.json min.json
+# For webserver
 while read s
 do
     echo "$s being removed from min-syscalls.json"
-    grep -v "\"${s}\"" temp_assets/dbserver/min-syscalls.json > temp_assets/dbserver/tmp.json
+    grep -v "\"${s}\"" temp_assets/webserver/min-syscalls.json > temp_assets/webserver/tmp.json
     docker rm -f u2185920_csvs2022-web_c
     docker run -d \
         --net u2185920/csvs2022_n \
@@ -31,16 +30,16 @@ do
         --cap-drop=ALL \
         --cap-add=CHOWN --cap-add=SETGID --cap-add=SETUID --cap-add=NET_BIND_SERVICE \
         --security-opt=no-new-privileges \
-        --security-opt seccomp:temp_assets/dbserver/tmp.json
+        --security-opt seccomp:temp_assets/webserver/tmp.json \
         --name u2185920_csvs2022-web_c u2185920/csvs2022-web_i
     sleep 3
     if [ $( curl --max-time 3 -s http://localhost/index.php | grep wm00i | wc -l ) == "1" ]; then
-        cp temp_assets/dbserver/tmp.json temp_assets/dbserver/docker_webserver.json
+        cp temp_assets/webserver/tmp.json temp_assets/webserver/docker_webserver.json
         echo "$s being removed"
     else
         echo $s >> temp_assets/webserver/reduced_min_syscalls
     fi
-done < temp_assets/dbserver/min-syscalls
+done < temp_assets/webserver/min_syscalls
 
 
 # For webserver
