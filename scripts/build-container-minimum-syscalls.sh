@@ -48,7 +48,7 @@ do
     fi
 done < temp_assets/dbserver/min_syscalls
 
-For webserver
+# For webserver
 cp temp_assets/webserver/min-syscalls.json temp_assets/webserver/temp-min-syscalls.json
 while read s
 do
