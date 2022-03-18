@@ -7,10 +7,11 @@
 #              (Citation: Peter Norris, https://moodle.warwick.ac.uk/pluginfile.php/2256652/mod_folder/content/0/seccomp/build-minimal-sycalls.sh?forcedownload=1)
 
 # For webserver
+cp temp_assets/webserver/min-syscalls.json temp_assets/webserver/temp-min-syscalls.json
 while read s
 do
     echo "$s being removed from min-syscalls.json"
-    grep -v "\"${s}\"" temp_assets/webserver/min-syscalls.json > temp_assets/webserver/tmp.json
+    grep -v "\"${s}\"" temp_assets/webserver/temp-min-syscalls.json > temp_assets/webserver/tmp.json
     docker rm -f u2185920_csvs2022-web_c
     docker run -d \
         --net u2185920/csvs2022_n \
@@ -32,15 +33,16 @@ do
         --security-opt=no-new-privileges \
         --security-opt seccomp:temp_assets/webserver/tmp.json \
         --name u2185920_csvs2022-web_c u2185920/csvs2022-web_i
-    sleep 3
+    sleep 5
     if [ $( curl --max-time 5 -s http://localhost/index.php | grep wm00i | wc -l ) == "1" ]
     then
-        cp temp_assets/webserver/tmp.json temp_assets/webserver/docker_webserver.json
-        echo "$s being removed"
+        cp temp_assets/webserver/tmp.json temp_assets/webserver/temp-min-syscalls.json
+        echo "$s can be removed"
     else
         echo $s >> temp_assets/webserver/reduced_min_syscalls
     fi
 done < temp_assets/webserver/min_syscalls
 
+rm 
 
-# For webserver
+# For dbserver
