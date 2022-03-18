@@ -41,18 +41,17 @@ sudo setenforce 1
 #########################
 # SECCOMP               #
 #########################
-# Generate minimum syscalls to run the container
-./build-minimal-sycalls.sh
+# Generate minimum syscalls for base images to run the container
+./build-base-minimal-sycalls.sh
 
 # Stracing
 echo "csc" | sudo -S strace -p $(docker inspect -f '{{.State.Pid}}' u2185920_csvs2022-db_c) -ff -o output_h/host-strace-output
-
 echo "csc" | sudo -S strace -p $(docker inspect -f '{{.State.Pid}}' u2185920_csvs2022-web_c) -ff -o output_h/host-strace-output
 
 # Set ready flag
 echo "csc" | sudo -S touch output_h/ready
 
-# Build syscalls
+# Build straced syscalls by filtering out non required stuff
 cat ../builds/webserver/output_h/* | \
     grep -Po "^[a-z_0-9]+\(" | \
     sed 's/(//' | \

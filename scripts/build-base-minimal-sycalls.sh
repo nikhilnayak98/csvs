@@ -3,7 +3,7 @@
 # Author: Nikhil Ranjan Nayak
 # Web: https://github.com/nikhilnayak98/csvs
 # Email: Nikhil-Ranjan.Nayak@warwick.ac.uk
-# Description: Find minimal syscalls by removing from default syscalls
+# Description: Find minimal syscalls by removing from default syscalls for base images
 #              (Citation: Peter Norris, https://moodle.warwick.ac.uk/pluginfile.php/2256652/mod_folder/content/0/seccomp/build-minimal-sycalls.sh?forcedownload=1)
 
 # For dbserver
