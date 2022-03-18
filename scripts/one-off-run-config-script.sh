@@ -81,6 +81,9 @@ cat temp_assets/dbserver/list-of-min-syscalls temp_assets/dbserver/straced_sysca
 #########################
 # STRIPPING             #
 #########################
+# Install docker-slim
+sudo curl -sL https://raw.githubusercontent.com/docker-slim/docker-slim/master/scripts/install-dockerslim.sh | sudo -E bash -
+
 # dbserver stripping
 ../builds/dbserver/strip-cmd
 
