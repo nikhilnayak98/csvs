@@ -35,11 +35,11 @@ do
         --name u2185920_csvs2022-db_c u2185920/csvs2022-db_i
     sleep 5
     
-    curl -s --max-time 3 -X POST http://localhost/action.php \
+    curl -s --max-time 5 -X POST http://localhost/action.php \
         -H "Content-Type: application/x-www-form-urlencoded" \
         -d 'fullname='"$s"'&feedback=can be removed'
     
-    if [ $( curl --max-time 5 -s http://localhost/index.php | grep -qw ${s} | wc -l ) == "1" ]
+    if [ $( curl --max-time 5 -s http://localhost/index.php | grep -w ${s} | wc -l ) == "1" ]
     then
         cp temp_assets/dbserver/tmp.json temp_assets/dbserver/temp-min-syscalls.json
         echo "$s can be removed"
