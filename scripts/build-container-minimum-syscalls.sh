@@ -33,7 +33,8 @@ do
         --security-opt seccomp:temp_assets/webserver/tmp.json \
         --name u2185920_csvs2022-web_c u2185920/csvs2022-web_i
     sleep 3
-    if [ $( curl --max-time 3 -s http://localhost/index.php | grep wm00i | wc -l ) == "1" ]; then
+    if [ $( curl --max-time 5 -s http://localhost/index.php | grep wm00i | wc -l ) == "1" ]
+    then
         cp temp_assets/webserver/tmp.json temp_assets/webserver/docker_webserver.json
         echo "$s being removed"
     else
