@@ -3,7 +3,7 @@
 # Author: Nikhil Ranjan Nayak
 # Web: https://github.com/nikhilnayak98/csvs
 # Email: Nikhil-Ranjan.Nayak@warwick.ac.uk
-# Description: Find minimal selinux for containers by removing from each rule that is already generated
+# Description: Find minimal selinux rules for containers by removing from each rule that is already generated
 
 # For dbserver
 cd temp_assets/selinux/dbserver
