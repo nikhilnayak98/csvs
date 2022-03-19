@@ -48,7 +48,6 @@ docker run -d \
         --memory-swap="1g" \
         --read-only \
         --tmpfs /tmp \
-        --tmpfs /var \
         --tmpfs /var/run/mysqld \
         --tmpfs /var/lib/mysqld \
         --tmpfs /run/mysqld \
@@ -99,7 +98,6 @@ docker run -d \
         --memory-swap="1g" \
         --read-only \
         --tmpfs /tmp \
-        --tmpfs /var \
         --tmpfs /var/run/mysqld \
         --tmpfs /var/lib/mysqld \
         --tmpfs /run/mysqld \

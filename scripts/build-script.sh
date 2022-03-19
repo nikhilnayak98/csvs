@@ -9,7 +9,7 @@ BUILDSDIR=$(cd ../builds && pwd)
 
 # Build dbserver
 cd $BUILDSDIR/dbserver
-docker build . -t u2185920/csvs2022-db_i
+#docker build . -t u2185920/csvs2022-db_i
 
 # Build webserver
 cd $BUILDSDIR/webserver
