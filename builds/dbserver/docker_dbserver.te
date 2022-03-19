@@ -19,6 +19,8 @@ require {
         type mysqld_port_t;
         type node_t;
         type sysfs_t;
+        type container_runtime_t;
+        class process2 nnp_transition;
         class capability { chown setgid setuid };
         class tcp_socket { bind create listen name_bind node_bind setopt accept getattr read write};
         class file { open read };
@@ -29,6 +31,7 @@ require {
 }
 
 #============= docker_dbserver_t ==============
+allow container_runtime_t docker_dbserver_t:process2 nnp_transition;
 allow docker_dbserver_t mysqld_port_t:tcp_socket name_bind;
 allow docker_dbserver_t node_t:tcp_socket node_bind;
 allow docker_dbserver_t self:capability { chown setgid setuid };
