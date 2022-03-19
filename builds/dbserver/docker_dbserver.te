@@ -18,29 +18,18 @@ virt_sandbox_domain_template(docker_dbserver);
 require {
         type mysqld_port_t;
         type node_t;
-        type sysfs_t;
         type container_runtime_t;
         class process2 nnp_transition;
-        class capability { chown setgid setuid };
-        class tcp_socket { bind create listen name_bind node_bind setopt accept getattr read write};
-        class file { open read };
-        class netlink_route_socket { bind create getattr nlmsg_read read write};
-        class lnk_file read;
-        class udp_socket { connect create getattr ioctl };
-        #class dir read;
+        class tcp_socket { bind create listen setopt accept getattr read write };
+        class netlink_route_socket { create getattr nlmsg_read };
 }
 
 #============= docker_dbserver_t ==============
 allow container_runtime_t docker_dbserver_t:process2 nnp_transition;
 allow docker_dbserver_t mysqld_port_t:tcp_socket name_bind;
 allow docker_dbserver_t node_t:tcp_socket node_bind;
-allow docker_dbserver_t self:capability { chown setgid setuid };
-allow docker_dbserver_t self:netlink_route_socket { bind create getattr nlmsg_read read write};
+allow docker_dbserver_t self:netlink_route_socket { create getattr nlmsg_read };
 allow docker_dbserver_t self:tcp_socket { bind create listen setopt accept getattr read write};
-allow docker_dbserver_t self:udp_socket { connect create getattr ioctl };
-allow docker_dbserver_t sysfs_t:file { open read };
-allow docker_dbserver_t sysfs_t:lnk_file read;
-#allow docker_db_t sysfs_t:dir read;
 ################# end audit2allow additions ##################
 # Permissive domains allow processes to not be blocked by SELinux
 # Remove this rule, when you are confident in the policy.

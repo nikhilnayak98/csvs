@@ -1,0 +1,32 @@
+policy_module(tmp_docker_dbserver,1.0.0)
+
+virt_sandbox_domain_template(tmp_docker_dbserver);
+
+require {
+        type mysqld_port_t;
+        type node_t;
+        type sysfs_t;
+        type container_runtime_t;
+        class process2 nnp_transition;
+        class capability { chown setgid setuid };
+        class tcp_socket { bind create listen name_bind node_bind setopt accept getattr read write};
+        class file { open read };
+        class netlink_route_socket { bind create getattr nlmsg_read read write};
+        class lnk_file read;
+        class udp_socket { connect create getattr ioctl };
+}
+
+allow container_runtime_t tmp_docker_dbserver_t:process2 nnp_transition;
+allow tmp_docker_dbserver_t mysqld_port_t:tcp_socket name_bind;
+allow tmp_docker_dbserver_t node_t:tcp_socket node_bind;
+allow tmp_docker_dbserver_t self:netlink_route_socket create;
+allow tmp_docker_dbserver_t self:netlink_route_socket getattr;
+allow tmp_docker_dbserver_t self:netlink_route_socket nlmsg_read;
+allow tmp_docker_dbserver_t self:tcp_socket bind;
+allow tmp_docker_dbserver_t self:tcp_socket create;
+allow tmp_docker_dbserver_t self:tcp_socket listen;
+allow tmp_docker_dbserver_t self:tcp_socket setopt;
+allow tmp_docker_dbserver_t self:tcp_socket accept;
+allow tmp_docker_dbserver_t self:tcp_socket getattr;
+allow tmp_docker_dbserver_t self:tcp_socket read;
+allow tmp_docker_dbserver_t self:tcp_socket write;
