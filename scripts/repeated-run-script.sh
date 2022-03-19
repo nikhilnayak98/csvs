@@ -46,6 +46,8 @@ docker run -d \
         --cpuset-cpus=0 \
         --memory="300m" \
         --memory-swap="1g" \
+        --pids-limit 50 \
+        --restart=on-failure:5 \
         --read-only \
         --tmpfs /tmp \
         --tmpfs /var/run/mysqld \
@@ -69,6 +71,8 @@ docker run -d \
         --cpuset-cpus=0 \
         --memory="300m" \
         --memory-swap="1g" \
+        --pids-limit 50 \
+        --restart=on-failure:5 \
         --read-only \
         --tmpfs /tmp \
         --tmpfs /var \
@@ -96,6 +100,8 @@ docker run -d \
         --cpuset-cpus=0 \
         --memory="300m" \
         --memory-swap="1g" \
+        --pids-limit 50 \
+        --restart=on-failure:5 \
         --read-only \
         --tmpfs /tmp \
         --tmpfs /var/run/mysqld \
@@ -150,6 +156,8 @@ docker run -d \
         --cpuset-cpus=0 \
         --memory="100m" \
         --memory-swap="300m" \
+        --pids-limit 50 \
+        --restart=on-failure:5 \
         --read-only \
         --tmpfs /var/log/nginx \
         --tmpfs /var/log/php-fpm \
@@ -174,6 +182,8 @@ docker run -d \
         --cpuset-cpus=0 \
         --memory="100m" \
         --memory-swap="300m" \
+        --pids-limit 50 \
+        --restart=on-failure:5 \
         --read-only \
         --tmpfs /var/log/nginx \
         --tmpfs /var/log/php-fpm \
@@ -201,6 +211,8 @@ docker run -d \
         --cpuset-cpus=0 \
         --memory="100m" \
         --memory-swap="300m" \
+        --pids-limit 50 \
+        --restart=on-failure:5 \
         --read-only \
         --tmpfs /var/log/nginx \
         --tmpfs /var/log/php-fpm \
