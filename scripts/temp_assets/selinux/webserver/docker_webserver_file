@@ -1,0 +1,32 @@
+policy_module(tmp_docker_webserver,1.0.0)
+
+virt_sandbox_domain_template(tmp_docker_webserver);
+
+require {
+        type mysqld_port_t;
+        type node_t;
+        type http_port_t;
+        type container_runtime_t;
+        class process2 nnp_transition;
+        class capability { chown net_bind_service setgid setuid };
+        class tcp_socket { accept bind connect create getattr getopt listen name_bind name_connect node_bind setopt read write};
+        class udp_socket create;
+}
+
+allow container_runtime_t tmp_docker_webserver_t:process2 nnp_transition;
+allow tmp_docker_webserver_t http_port_t:tcp_socket name_bind;
+allow tmp_docker_webserver_t mysqld_port_t:tcp_socket name_connect;
+allow tmp_docker_webserver_t node_t:tcp_socket node_bind;
+allow tmp_docker_webserver_t self:capability chown;
+allow tmp_docker_webserver_t self:capability net_bind_service;
+allow tmp_docker_webserver_t self:capability setgid;
+allow tmp_docker_webserver_t self:capability setuid;
+allow tmp_docker_webserver_t self:tcp_socket accept;
+allow tmp_docker_webserver_t self:tcp_socket bind;
+allow tmp_docker_webserver_t self:tcp_socket connect;
+allow tmp_docker_webserver_t self:tcp_socket create;
+allow tmp_docker_webserver_t self:tcp_socket getopt;
+allow tmp_docker_webserver_t self:tcp_socket listen;
+allow tmp_docker_webserver_t self:tcp_socket setopt;
+allow tmp_docker_webserver_t self:tcp_socket read;
+allow tmp_docker_webserver_t self:tcp_socket write;
