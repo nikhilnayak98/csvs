@@ -37,12 +37,18 @@ sudo ausearch -m avc --start recent | audit2allow -r
 # Ensure SELinux is enforcing
 sudo setenforce 1
 
+# Generate minimum selinux rules for stripped images to run the container
+./build-base-minimal-sycalls.sh
+
 
 #########################
 # SECCOMP               #
 #########################
 # Generate minimum syscalls for base images to run the container
 ./build-base-minimal-sycalls.sh
+
+# Generate minimum syscalls for images to run the container
+./build-container-minimum-syscalls.sh
 
 # Stracing
 echo "csc" | sudo -S strace -p $(docker inspect -f '{{.State.Pid}}' u2185920_csvs2022-db_c) -ff -o output_h/host-strace-output

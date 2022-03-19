@@ -3,7 +3,7 @@
 # Author: Nikhil Ranjan Nayak
 # Web: https://github.com/nikhilnayak98/csvs
 # Email: Nikhil-Ranjan.Nayak@warwick.ac.uk
-# Description: dbserver stripping
+# Description: dbserver stripping with docker-slim
 
 # with docker-slim
 docker-slim build \
@@ -13,18 +13,3 @@ docker-slim build \
         --include-path /run/mysqld/ \
         --http-probe=false \
         --tag u2185920/csvs2022-db_i:stripped
-
-# with strip-image
-# ../../scripts/strip-image  \
-#         -i u2185920/csvs2022-db_i \
-#         -p mariadb-server \
-#         -f /etc/passwd \
-#         -f /etc/group \
-#         -f /etc/mysql/conf.d/ \
-#         -f /var/lib/mysql \
-#         -f /var/lib/mysqld \
-#         -f /usr/sbin/mysqld \
-#         -f /mysql/mysql.conf.d/mysqld.cnf \
-#         -f /run/mysqld \
-#         -d Dockerfile \
-#         -t u2185920/csvs2022-db_i:stripped
