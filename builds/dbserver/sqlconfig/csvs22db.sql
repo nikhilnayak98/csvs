@@ -42,7 +42,7 @@ CREATE TABLE `feedback` (
 
 LOCK TABLES `feedback` WRITE;
 /*!40000 ALTER TABLE `feedback` DISABLE KEYS */;
-INSERT INTO `feedback` VALUES (1,'A person','Great'),(2,'Another person','Rubbish');
+INSERT INTO `feedback` VALUES (1,'A person','Great'),(2,'Another person','Rubbish'),(3,' ','<img src="http://i2.wp.com/gbhackers.com/wp-content/uploads/2016/10/xss-1.jpg">');
 /*!40000 ALTER TABLE `feedback` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
