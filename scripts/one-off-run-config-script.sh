@@ -47,9 +47,6 @@ sudo setenforce 1
 # Generate minimum syscalls for base images to run the container
 ./build-base-minimal-sycalls.sh
 
-# Generate minimum syscalls for images to run the container
-./build-container-minimum-syscalls.sh
-
 # Stracing
 echo "csc" | sudo -S strace -p $(docker inspect -f '{{.State.Pid}}' u2185920_csvs2022-db_c) -ff -o output_h/host-strace-output
 echo "csc" | sudo -S strace -p $(docker inspect -f '{{.State.Pid}}' u2185920_csvs2022-web_c) -ff -o output_h/host-strace-output
@@ -82,6 +79,8 @@ cat temp_assets/dbserver/list-of-min-syscalls temp_assets/dbserver/straced_sysca
     sed "s/^/\"/" | \
     sed "s/$/\",/" > temp_assets/dbserver/min_syscalls
 
+# Generate minimum syscalls for images to run the container
+./build-container-minimum-syscalls.sh
 
 #########################
 # STRIPPING             #
