@@ -57,7 +57,7 @@ rm tmp_docker_dbserver.te
 
 
 # For webserver
-cd temp_assets/selinux/webserver
+cd ../webserver
 while read rule
 do
     echo "$rule being removed from docker_webserver.te"
