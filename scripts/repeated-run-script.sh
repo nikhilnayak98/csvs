@@ -28,6 +28,8 @@ docker run -d \
 # set cpu core                                                          #
 # set limited memory                                                    #
 # set memory swap                                                       #
+# set pid limit                                                         #
+# set auto restart on failure                                           #
 # set the container to be read only                                     #
 # set writable temporary file systems required to run the container     #
 # mount read only DBSERVERLOG_VOL volume                                #
@@ -138,6 +140,8 @@ docker run -d \
 # set cpu core                                                          #
 # set limited memory                                                    #
 # set memory swap                                                       #
+# set pid limit                                                         #
+# set auto restart on failure                                           #
 # set the container to be read only                                     #
 # set writable temporary file systems required to run the container     #
 # mount read only WEBSERVERLOG_VOL volume                               #
