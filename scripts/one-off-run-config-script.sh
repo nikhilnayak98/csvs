@@ -38,7 +38,7 @@ sudo ausearch -m avc --start recent | audit2allow -r
 sudo setenforce 1
 
 # Generate minimum selinux rules for stripped images to run the container
-./build-base-minimal-sycalls.sh
+./build-minimum-selinux-rules.sh
 
 
 #########################
