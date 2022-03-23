@@ -14,3 +14,31 @@ docker-slim build \
         --include-path /etc/php-fpm.d/www.conf \
         --include-path /etc/nginx/conf.d/php-fpm.conf \
         --tag u2185920/csvs2022-web_i:stripped
+
+# with strip-image script
+# ../../scripts/strip-image  \
+#         -i u2185920/csvs2022-web_i \
+#         -p nginx \
+#         -p php \
+#         -p php-mysqlnd \
+#         -p php-fpm \
+#         -p sh \
+#         -p bash \
+#         -f /etc/passwd \
+#         -f /etc/group \
+#         -f '/lib/*/libnss*' \
+#         -f '/lib64/libnss*' \
+#         -f /var/run \
+#         -f /var/log/nginx \
+#         -f /var/log/php-fpm \
+#         -f /usr/sbin/php-fpm \
+#         -f /etc/php-fpm.conf \
+#         -f /etc/nginx/nginx.conf \
+#         -f /etc/php.ini \
+#         -f /etc/php-fpm.d/*.conf \
+#         -f /etc/php-fpm.d/www.conf \
+#         -f /etc/nginx/conf.d/php-fpm.conf \
+#         -f /usr/share/nginx/html \
+#         -f /docker-entrypoint.sh \
+#         -d Dockerfile \
+#         -t u2185920/csvs2022-web_i:stripped
