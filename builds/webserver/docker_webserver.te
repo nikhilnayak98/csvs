@@ -25,11 +25,18 @@ require {
 }
 
 #============= docker_webserver_t ==============
+# allows for container restart while selinux is enforced on host
 allow container_runtime_t docker_webserver_t:process2 nnp_transition;
+# describes the ports associated with webserver, required for application binding to a port
 allow docker_webserver_t http_port_t:tcp_socket name_bind;
+# required for application connecting to a port
 allow docker_webserver_t mysqld_port_t:tcp_socket name_connect;
+# node_bind permission determines whether a socket can be bound to a specific type of node
 allow docker_webserver_t node_t:tcp_socket node_bind;
+# capability specific rules
 allow docker_webserver_t self:capability { chown net_bind_service setgid setuid };
+# basic tcp rules for webserver
+# read, write rules allow for the container to run with selinux enforced on the host
 allow docker_webserver_t self:tcp_socket { accept bind connect create getopt listen setopt read write };
 ################# end audit2allow additions ##################
 
