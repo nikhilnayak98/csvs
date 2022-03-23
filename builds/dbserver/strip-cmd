@@ -27,5 +27,4 @@ docker-slim build \
 #         -f /mysql/mysql.conf.d/mysqld.cnf \
 #         -f /run/mysqld \
 #         -d Dockerfile \
-#         -t u2185920/csvs2022-db_i:stripped 
-#        --tag u2185920/csvs2022-db_i:stripped 
+#         -t u2185920/csvs2022-db_i:stripped
