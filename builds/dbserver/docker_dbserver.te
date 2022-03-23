@@ -25,10 +25,15 @@ require {
 }
 
 #============= docker_dbserver_t ==============
+# allows for container restart while selinux is enforced on host
 allow container_runtime_t docker_dbserver_t:process2 nnp_transition;
+# describes the ports associated with dbserver, required for application binding to a port
 allow docker_dbserver_t mysqld_port_t:tcp_socket name_bind;
+# node_bind permission determines whether a socket can be bound to a specific type of node
 allow docker_dbserver_t node_t:tcp_socket node_bind;
 allow docker_dbserver_t self:netlink_route_socket { create getattr nlmsg_read };
+# basic tcp rules for dbserver
+# read, write rules allow for the container to run with selinux enforced on the host
 allow docker_dbserver_t self:tcp_socket { bind create listen setopt accept getattr read write};
 ################# end audit2allow additions ##################
 # Permissive domains allow processes to not be blocked by SELinux
