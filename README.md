@@ -20,7 +20,7 @@ This repo contains workings of docker hardening (capabilities, selinux, seccomp,
 - [x] 16. Set name of the container
 
 ## Phase 2
-- [x] 1. Set SELinux policy
+- [x] 1. Set SELinux policies
 - [x] 2. Set seccomp profile
 
 ## Phase 3
@@ -28,3 +28,8 @@ This repo contains workings of docker hardening (capabilities, selinux, seccomp,
 - [x] 2. Add privilege escalation protection
 - [x] 3. No root inside dbserver container
 - [x] 4. Image stripping using dockerslim
+- [x] 5. Pushed images to registry
+  - [x] <code>gcr.io/u2185920/csvs2022-db_i</code>
+  - [x] <code>gcr.io/u2185920/csvs2022-web_i</code>
+  - [x] <code>gcr.io/u2185920/csvs2022-db_i:stripped</code>
+  - [x] <code>gcr.io/u2185920/csvs2022-web_i:stripped</code>
