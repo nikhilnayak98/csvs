@@ -10,12 +10,14 @@ This repo contains workings of docker hardening (capabilities, selinux, seccomp,
 - [x] 6. Set cpu cores
 - [x] 7. Set limited memory
 - [x] 8. Set memory swap
-- [x] 9. Set the container to be read only
-- [x] 10. Set writable temporary file systems that are required
-- [x] 11. Mount read only volumes
-- [x] 12. Set read, write output directory for stracing
-- [x] 13. Drop all capabilities and add only the required capabilities
-- [x] 14. Set name of the container
+- [x] 9. Limit pids
+- [x] 10. Set auto restarts
+- [x] 11. Set the container to be read only
+- [x] 12. Set writable temporary file systems that are required
+- [x] 13. Mount read only volumes
+- [x] 14. Set read, write output directory for stracing
+- [x] 15. Drop all capabilities and add only the required capabilities
+- [x] 16. Set name of the container
 
 ## Phase 2
 - [x] 1. Set SELinux policy
@@ -24,3 +26,5 @@ This repo contains workings of docker hardening (capabilities, selinux, seccomp,
 ## Phase 3
 - [x] 1. Strip the images to their bare minimum size
 - [x] 2. Add privilege escalation protection
+- [x] 3. No root inside dbserver container
+- [x] 4. Image stripping using dockerslim
