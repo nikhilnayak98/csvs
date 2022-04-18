@@ -1,7 +1,7 @@
 # WM00I:Cyber Security for Virtualisation Systems
 This repo contains workings of docker hardening (capabilities, selinux, seccomp, image stripping) for CSVS PMA due on 21st March.
 
-## Phase 1
+## Progress 1
 - [x] 1. Create different network for containers
 - [x] 2. Set IP Addresses
 - [x] 3. Set hostnames
@@ -19,11 +19,11 @@ This repo contains workings of docker hardening (capabilities, selinux, seccomp,
 - [x] 15. Drop all capabilities and add only the required capabilities
 - [x] 16. Set name of the container
 
-## Phase 2
+## Progress 2
 - [x] 1. Set SELinux policies
 - [x] 2. Set seccomp profile
 
-## Phase 3
+## Progress 3
 - [x] 1. Strip the images to their bare minimum size
 - [x] 2. Add privilege escalation protection
 - [x] 3. No root inside dbserver container
