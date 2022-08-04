@@ -1,5 +1,6 @@
-# WM00I:Cyber Security for Virtualisation Systems
-This repo contains workings of docker hardening (capabilities, selinux, seccomp, image stripping) for CSVS PMA due on 21st March.
+# Cyber Security for Virtualisation Systems
+
+A scalable secure implementation of Docker runtime functionality for CentOS container and MariaDB container using Linux capabilities, SELinux and seccomp profiles. Base images were stripped down using Dockerslim and hardened to run as non-root users.
 
 ## Progress 1
 - [x] 1. Create different network for containers
